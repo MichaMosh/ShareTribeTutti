@@ -68,7 +68,9 @@ import {
   handleContactUser,
   handleSubmitInquiry,
   handleSubmit,
+  handleToggleFavorites,
 } from './ListingPage.shared';
+import { updateProfile } from '../ProfileSettingsPage/ProfileSettingsPage.duck';
 import ActionBarMaybe from './ActionBarMaybe';
 import SectionTextMaybe from './SectionTextMaybe';
 import SectionDetailsMaybe from './SectionDetailsMaybe';
@@ -116,6 +118,7 @@ export const ListingPageComponent = props => {
     onInitializeCardPaymentData,
     config,
     routeConfiguration,
+    onUpdateFavorites,
   } = props;
 
   const listingConfig = config.listing;
@@ -280,6 +283,13 @@ export const ListingPageComponent = props => {
 
   const createFilterOptions = options => options.map(o => ({ key: `${o.option}`, label: o.label }));
 
+  const onToggleFavorites = handleToggleFavorites({
+    ...commonParams,
+    currentUser,
+    onUpdateFavorites,
+    location,
+  });
+
   return (
     <Page
       title={schemaTitle}
@@ -426,6 +436,8 @@ export const ListingPageComponent = props => {
               marketplaceCurrency={config.currency}
               dayCountAvailableForBooking={config.stripe.dayCountAvailableForBooking}
               marketplaceName={config.marketplaceName}
+              onToggleFavorites={onToggleFavorites}
+              currentUser={currentUser}
             />
           </div>
         </div>
@@ -576,6 +588,8 @@ const mapDispatchToProps = dispatch => ({
   onInitializeCardPaymentData: () => dispatch(initializeCardPaymentData()),
   onFetchTimeSlots: (listingId, start, end, timeZone) =>
     dispatch(fetchTimeSlots(listingId, start, end, timeZone)),
+    onUpdateFavorites: (payload) => dispatch(updateProfile(payload)),
+
 });
 
 // Note: it is important that the withRouter HOC is **outside** the

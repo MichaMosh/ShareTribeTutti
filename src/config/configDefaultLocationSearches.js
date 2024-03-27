@@ -12,13 +12,16 @@ const { LatLng, LatLngBounds } = sdkTypes;
 //       1) help customers to find relevant locations, and
 //       2) reduce the cost of using map providers geocoding API
 const defaultLocations = [
-  // {
-  //   id: 'default-helsinki',
-  //   predictionPlace: {
-  //     address: 'Helsinki, Finland',
-  //     bounds: new LatLngBounds(new LatLng(60.29783, 25.25448), new LatLng(59.92248, 24.78287)),
-  //   },
-  // },
+  {
+    id: 'default-maui',
+    predictionPlace: {
+      address: 'Maui, Hawaii, USA',
+      bounds: new LatLngBounds(
+        new LatLng(21.03141298976477, -155.9790420834986), // Northeast corner of Maui
+        new LatLng(20.57457850828407, -156.6969232882344)  // Southwest corner of Maui
+      ),
+    },
+  },
   // {
   //   id: 'default-turku',
   //   predictionPlace: {

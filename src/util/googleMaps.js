@@ -13,9 +13,25 @@ const placeBounds = place => {
   if (place && place.geometry && place.geometry.viewport) {
     const ne = place.geometry.viewport.getNorthEast();
     const sw = place.geometry.viewport.getSouthWest();
+
+    // Calculate the center of the bounds
+    const centerLat = (ne.lat() + sw.lat()) / 2;
+    const centerLng = (ne.lng() + sw.lng()) / 2;
+
+    // Calculate the latitude and longitude degrees for 5 miles
+    const latDegreeMiles = 15 / 69;
+    const lngDegreeMiles = 15 / (Math.cos(centerLat * Math.PI / 180) * 69);
+
+    // Calculate new NE and SW coordinates based on a 5-mile radius from the center
+    const newNELat = centerLat + latDegreeMiles;
+    const newNELng = centerLng + lngDegreeMiles;
+    const newSWLat = centerLat - latDegreeMiles;
+    const newSWLng = centerLng - lngDegreeMiles;
+
+    // Return the new bounds
     return new SDKLatLngBounds(
-      new SDKLatLng(ne.lat(), ne.lng()),
-      new SDKLatLng(sw.lat(), sw.lng())
+      new SDKLatLng(newNELat, newNELng),
+      new SDKLatLng(newSWLat, newSWLng)
     );
   }
   return null;

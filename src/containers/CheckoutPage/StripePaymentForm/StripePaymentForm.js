@@ -453,6 +453,8 @@ class StripePaymentForm extends Component {
 
     this.finalFormAPI = formApi;
 
+    const { initialMessage } = formRenderProps.values;
+
     const ensuredDefaultPaymentMethod = ensurePaymentMethodCard(defaultPaymentMethod);
     const billingDetailsNeeded = !(hasHandledCardPayment || confirmPaymentError);
 
@@ -466,7 +468,7 @@ class StripePaymentForm extends Component {
       hasHandledCardPayment
     );
 
-    const submitDisabled = invalid || onetimePaymentNeedsAttention || submitInProgress;
+    const submitDisabled = invalid || onetimePaymentNeedsAttention || submitInProgress || (showInitialMessageInput && !initialMessage);
     const hasCardError = this.state.error && !submitInProgress;
     const hasPaymentErrors = confirmCardPaymentError || confirmPaymentError;
     const classes = classNames(rootClassName || css.root, className);
@@ -536,6 +538,22 @@ class StripePaymentForm extends Component {
 
     return hasStripeKey ? (
       <Form className={classes} onSubmit={handleSubmit} enforcePagePreloadFor="OrderDetailsPage">
+        {showInitialMessageInput ? (
+          <div>
+            <Heading as="h3" rootClassName={css.heading}>
+              <FormattedMessage id="StripePaymentForm.messageHeading" />
+            </Heading>
+
+            <FieldTextInput
+              type="textarea"
+              id={`${formId}-message`}
+              name="initialMessage"
+              label={initialMessageLabel}
+              placeholder={messagePlaceholder}
+              className={css.message}
+            />
+          </div>
+        ) : null}
         <LocationOrShippingDetails
           askShippingDetails={askShippingDetails}
           showPickUplocation={showPickUplocation}
@@ -622,22 +640,6 @@ class StripePaymentForm extends Component {
 
         {initiateOrderError ? (
           <span className={css.errorMessage}>{initiateOrderError.message}</span>
-        ) : null}
-        {showInitialMessageInput ? (
-          <div>
-            <Heading as="h3" rootClassName={css.heading}>
-              <FormattedMessage id="StripePaymentForm.messageHeading" />
-            </Heading>
-
-            <FieldTextInput
-              type="textarea"
-              id={`${formId}-message`}
-              name="initialMessage"
-              label={initialMessageLabel}
-              placeholder={messagePlaceholder}
-              className={css.message}
-            />
-          </div>
         ) : null}
         <div className={css.submitContainer}>
           {hasPaymentErrors ? (

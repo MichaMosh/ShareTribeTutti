@@ -44,7 +44,7 @@ import {
   resolveLatestProcessName,
 } from '../../transactions/transaction';
 
-import { ModalInMobile, PrimaryButton, AvatarSmall, H1, H2 } from '../../components';
+import { ModalInMobile, PrimaryButton, AvatarSmall, H1, H2, Button, SecondaryButton } from '../../components';
 
 import css from './OrderPanel.module.css';
 
@@ -183,7 +183,28 @@ const OrderPanel = props => {
     fetchLineItemsInProgress,
     fetchLineItemsError,
     payoutDetailsWarning,
+    onToggleFavorites,
+    currentUser,
   } = props;
+
+  const isFavorite = currentUser?.attributes.profile.privateData.favorites?.includes(
+    listing.id.uuid
+  );
+  
+  const toggleFavorites = () => onToggleFavorites(isFavorite);
+  
+  const favoriteButton = isFavorite ? (
+    <SecondaryButton
+      className={css.favoriteButton}
+      onClick={toggleFavorites}
+    >
+      <FormattedMessage id="OrderPanel.unfavoriteButton" />
+    </SecondaryButton>
+  ) : (
+    <Button className={css.favoriteButton} onClick={toggleFavorites}>
+      <FormattedMessage id="OrderPanel.addFavoriteButton" />
+    </Button>
+  );
 
   const publicData = listing?.attributes?.publicData || {};
   const { listingType, unitType, transactionProcessAlias = '' } = publicData || {};
@@ -294,7 +315,7 @@ const OrderPanel = props => {
             <FormattedMessage id="OrderPanel.author" values={{ name: authorDisplayName }} />
           </span>
         </div>
-
+        {favoriteButton}
         {showPriceMissing ? (
           <PriceMissing />
         ) : showInvalidCurrency ? (

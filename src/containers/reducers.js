@@ -18,11 +18,14 @@ import ProfileSettingsPage from './ProfileSettingsPage/ProfileSettingsPage.duck'
 import SearchPage from './SearchPage/SearchPage.duck';
 import StripePayoutPage from './StripePayoutPage/StripePayoutPage.duck';
 import TransactionPage from './TransactionPage/TransactionPage.duck';
+import FavoriteListingsPage from './FavoriteListingPage/FavoriteListingPage.duck'
+
 
 export {
   CheckoutPage,
   ContactDetailsPage,
   EditListingPage,
+  FavoriteListingsPage,
   InboxPage,
   ListingPage,
   ManageListingsPage,
