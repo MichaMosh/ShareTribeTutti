@@ -39,6 +39,7 @@ import {
   exposeOpenGraphData,
   exposeSocialMediaProps,
 } from './Field.helpers';
+import Search from './Search';
 
 const TEXT_CONTENT = [
   'heading1',
@@ -198,6 +199,12 @@ const isEmpty = obj => Object.keys(obj).length === 0;
 // Generic field component that picks a specific UI component based on 'fieldType'
 const Field = props => {
   const { data, options: fieldOptions, ...propsFromParent } = props;
+  
+  if(data?.content == "Let's Connect") {
+    return(
+      <Search/>
+    )
+  }
 
   // Check the data and pick valid props only
   const validPropsFromData = validProps(data, fieldOptions);

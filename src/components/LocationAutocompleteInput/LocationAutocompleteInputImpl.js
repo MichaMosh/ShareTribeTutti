@@ -497,6 +497,7 @@ class LocationAutocompleteInputImplementation extends Component {
     const { touched, valid } = meta || {};
     const isValid = valid && touched;
     const predictions = this.currentPredictions();
+    const { showIcon } = this.props; // Destructure showIcon from props
 
     const handleOnFocus = e => {
       this.setState({ inputHasFocus: true });
@@ -518,6 +519,7 @@ class LocationAutocompleteInputImplementation extends Component {
 
     return (
       <div className={rootClass}>
+      {showIcon && (
         <div className={iconClass}>
           {this.state.fetchingPlaceDetails ? (
             <IconSpinner className={css.iconSpinner} />
@@ -525,6 +527,7 @@ class LocationAutocompleteInputImplementation extends Component {
             <IconHourGlass />
           )}
         </div>
+      )}
         <input
           className={inputClass}
           type="search"
@@ -569,6 +572,7 @@ class LocationAutocompleteInputImplementation extends Component {
 
 const LocationAutocompleteInputImpl = props => {
   const config = useConfiguration();
+  const { showIcon = true, ...restProps } = props;
 
   return <LocationAutocompleteInputImplementation config={config} {...props} />;
 };
@@ -587,6 +591,7 @@ LocationAutocompleteInputImpl.defaultProps = {
   useDefaultPredictions: true,
   meta: null,
   inputRef: null,
+  showIcon: true,
 };
 
 LocationAutocompleteInputImpl.propTypes = {
@@ -620,6 +625,7 @@ LocationAutocompleteInputImpl.propTypes = {
     touched: bool.isRequired,
   }),
   inputRef: func,
+  showIcon: bool,
 };
 
 export default LocationAutocompleteInputImpl;
