@@ -40,6 +40,7 @@ import {
   exposeSocialMediaProps,
 } from './Field.helpers';
 import BackgroundCycler from '../Background/BackgroundCycler';
+import Search from '../Search/Search';
 
 const TEXT_CONTENT = [
   'heading1',
@@ -203,6 +204,11 @@ const Field = props => {
   if(data?.alt == "Background image for section-1" && data?.backgroundImage?.id == "ab09c75d-3fa9-5a77-8b4b-48ec4f2a8931") {
     return(
       <BackgroundCycler />
+    )
+  }
+  if(data?.content == "Let's Connect") {
+    return(
+      <Search />
     )
   }
 
