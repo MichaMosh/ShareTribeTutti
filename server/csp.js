@@ -84,6 +84,10 @@ const defaultDirectives = {
 
     // Stripe
     '*.stripe.com',
+
+    // Cloudinary
+    'res.cloudinary.com', // Add this line
+
   ],
   scriptSrc: [
     self,
