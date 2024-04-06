@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 const BackgroundCycler = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = [
-    '/images/cover1.png', // Assuming the images are stored in the public/images directory
-    '/images/cover2.png',
-    '/images/cover3.png',
+    'https://res.cloudinary.com/dcbmqb01v/image/upload/v1712444472/Untitled_5_y0xdfl.png', // Assuming the images are stored in the public/images directory
+    'https://res.cloudinary.com/dcbmqb01v/image/upload/v1712444478/Untitled_2_rn9jpc.png',
+    'https://res.cloudinary.com/dcbmqb01v/image/upload/v1712444487/Untitled_4_eczc20.png',
   ];
 
   useEffect(() => {
