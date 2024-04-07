@@ -200,11 +200,11 @@ const isEmpty = obj => Object.keys(obj).length === 0;
 const Field = props => {
   const { data, options: fieldOptions, ...propsFromParent } = props;
 
-  if(data?.alt == "Background image for section-1" && data?.backgroundImage?.id == "ab09c75d-3fa9-5a77-8b4b-48ec4f2a8931") {
-    return(
-      <BackgroundCycler />
-    )
-  }
+  // if(data?.alt == "Background image for section-1" && data?.backgroundImage?.id == "ab09c75d-3fa9-5a77-8b4b-48ec4f2a8931") {
+  //   return(
+  //     <BackgroundCycler />
+  //   )
+  // }
 
   // Check the data and pick valid props only
   const validPropsFromData = validProps(data, fieldOptions);
