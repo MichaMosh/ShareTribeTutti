@@ -3,11 +3,17 @@ import DatePicker from 'react-datepicker';
 import { FaSearch } from 'react-icons/fa'; // Import the search icon
 import 'react-datepicker/dist/react-datepicker.css';
 import LocationAutocompleteInputImpl from '../../../components/LocationAutocompleteInput/LocationAutocompleteInputImpl';
+import { useHistory } from 'react-router-dom';
+
 
 function Search() {
+    const history = useHistory();
     const [place, setPlace] = useState(null);
     const [category, setCategory] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
     // Dummy input and meta objects based on your prop requirements
     const dummyInput = {
@@ -41,7 +47,7 @@ function Search() {
         basicUrl += `&dates=${formattedDate}%2C${formattedDate}`;
       }
     
-      window.location.href = basicUrl;
+      history.push(basicUrl);
     };
 
     function generateUrl(address, neLat, neLng, swLat, swLng, originLat, originLng) {
@@ -98,6 +104,7 @@ function Search() {
           dateFormat="MMMM d, yyyy"
           placeholderText="Select a date"
           style={{ width: '200px', marginRight: '8px' }} // Adjust width as needed
+          minDate={today}
         />
         <button onClick={handleSearchClick} style={{ display: 'flex', alignItems: 'center', padding: '8px', cursor: 'pointer', marginLeft: '8px', backgroundColor: 'white' }}>
           <FaSearch /> {/* Render the search icon */}
